@@ -1,4 +1,4 @@
-# Fake Ass Fucks List
+# One Way Follows
 
 This is a simple, private tool that shows who you follow on Instagram that **don’t** follow you back.
 
