@@ -42,7 +42,7 @@ You will need:
 3. Go to your **Settings**.
 4. Find **Accounts Center**.
 5. In Accounts Center, look for **Your information and permissions**.
-6. Click **Download your information**.
+6. Click **Export your information**.
 7. Choose:
    - All your information (or at least “Followers and following”).
    - **Format: JSON**.
