@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Fake ass fucks list</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #05060a;
+      color: #f7f7ff;
+      min-height: 100vh;
+    }
+
+    /* Centered landing */
+
+    .landing {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .landing-panel {
+      max-width: 520px;
+      width: 100%;
+      padding: 24px 22px 20px;
+      border-radius: 18px;
+      background: #11131b;
+      border: 1px solid #2e3444;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.9);
+    }
+
+    .landing-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .landing-title-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .landing-title {
+      font-size: 20px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin: 0;
+    }
+
+    .landing-sub {
+      font-size: 13px;
+      color: #b4b7c9;
+      margin: 0;
+    }
+
+    .landing-chip {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid #4ea3ff;
+      background: rgba(78,163,255,0.08);
+      color: #e0f0ff;
+      white-space: nowrap;
+    }
+
+    .step-list {
+      margin: 10px 0 16px;
+      padding-left: 18px;
+      font-size: 12px;
+      color: #d1d2e5;
+    }
+
+    .step-list li { margin-bottom: 4px; }
+
+    .upload-box {
+      margin-top: 4px;
+      padding: 14px 14px 12px;
+      border-radius: 14px;
+      background: #151824;
+      border: 1px solid #2f3547;
+    }
+
+    .upload-label-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .upload-title {
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .upload-hint {
+      font-size: 11px;
+      color: #9ba0b9;
+    }
+
+    /* Rounded, friendly file button */
+
+    #file-input {
+      display: block;
+      margin: 0 auto 6px;
+      color: transparent;
+      max-width: 100%;
+    }
+
+    #file-input::file-selector-button {
+      border: none;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #4ea3ff, #ff4b81);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 8px 18px;
+      cursor: pointer;
+      margin-right: 10px;
+      box-shadow: 0 8px 22px rgba(0,0,0,0.7);
+      transition: transform 0.12s ease, box-shadow 0.16s ease, background 0.16s ease;
+    }
+
+    #file-input::file-selector-button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.85);
+      background: linear-gradient(135deg, #6bb4ff, #ff6b98);
+    }
+
+    #file-input::file-selector-button:active {
+      transform: translateY(0);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.8);
+    }
+
+    .file-pills {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-top: 8px;
+    }
+
+    .file-pill {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      padding: 6px 9px;
+      border-radius: 999px;
+      background: #10121e;
+      font-size: 12px;
+    }
+
+    .file-pill-left {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .file-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #4d4f6f;
+    }
+
+    .file-label {
+      color: #e5e6ff;
+      font-weight: 500;
+    }
+
+    .file-name {
+      color: #7d7fab;
+      font-size: 11px;
+    }
+
+    .file-pill.ready .file-dot {
+      background: #3ce07b;
+      box-shadow: 0 0 8px rgba(60,224,123,0.9);
+    }
+
+    .file-pill.ready .file-name {
+      color: #a8ffd0;
+      font-weight: 500;
+    }
+
+    .file-pill.error .file-dot {
+      background: #ff4b81;
+      box-shadow: 0 0 8px rgba(255,75,129,0.9);
+    }
+
+    .file-pill.error .file-name {
+      color: #ffb3c7;
+      font-weight: 500;
+    }
+
+    .file-status-text {
+      font-size: 11px;
+      color: #a3a4c5;
+      margin-top: 4px;
+      min-height: 14px;
+    }
+
+    .file-status-text.ok {
+      color: #8df0b3;
+    }
+
+    .file-status-text.err {
+      color: #ff9ab8;
+    }
+
+    .actions-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .build-btn {
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(135deg, #ff4b81, #ff9a5a);
+      color: #fff;
+      font-size: 13px;
+      padding: 8px 18px;
+      cursor: pointer;
+      font-weight: 600;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.8);
+      transition: transform 0.12s ease, box-shadow 0.16s ease, opacity 0.16s ease;
+    }
+
+    .build-btn:disabled {
+      opacity: 0.45;
+      cursor: default;
+      box-shadow: none;
+      transform: none;
+    }
+
+    .build-btn:not(:disabled):hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 32px rgba(0,0,0,0.9);
+    }
+
+    .upload-status {
+      font-size: 11px;
+      color: #c9caf3;
+      text-align: right;
+    }
+
+    .upload-status.loading { color: #ffd166; }
+    .upload-status.done { color: #8df0b3; }
+    .upload-status.error { color: #ff9ab8; }
+
+    .landing-footer {
+      margin-top: 12px;
+      font-size: 11px;
+      color: #a5a6c9;
+    }
+
+    .landing-footer strong {
+      color: #4ea3ff;
+    }
+
+    /* Main app */
+
+    .page {
+      max-width: 1100px;
+      width: 100%;
+      margin: 24px auto 40px;
+      padding: 0 16px;
+    }
+
+    .hidden { display: none !important; }
+
+    .header-card,
+    .table-card {
+      background: #11131b;
+      border-radius: 16px;
+      border: 1px solid #2e3444;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.9);
+    }
+
+    .header-card {
+      padding: 18px 20px 16px;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .title-row {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: #181b27;
+    }
+
+    .title-emoji { font-size: 22px; }
+
+    h1 {
+      margin: 0;
+      font-size: 22px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .subtitle {
+      margin: 6px 0 0;
+      font-size: 13px;
+      color: #c0c1d8;
+    }
+
+    #joke-line {
+      margin-top: 4px;
+      font-size: 12px;
+      color: #f7f7ff;
+      opacity: 0.9;
+    }
+
+    .controls {
+      margin-top: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+    }
+
+    .search-box input {
+      background: #070813;
+      border-radius: 999px;
+      border: 1px solid #2e3444;
+      padding: 6px 12px;
+      color: #f7f7ff;
+      font-size: 13px;
+      min-width: 220px;
+      outline: none;
+    }
+
+    .search-box input::placeholder { color: #8487a4; }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: center;
+    }
+
+    .filter-chip {
+      border-radius: 999px;
+      border: 1px solid #2e3444;
+      padding: 5px 10px;
+      font-size: 11px;
+      background: #070813;
+      color: #c0c1d8;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .filter-chip span.count {
+      background: #1b1e2b;
+      border-radius: 999px;
+      padding: 1px 6px;
+      font-size: 10px;
+    }
+
+    .filter-chip.active {
+      border-color: #ff4b81;
+      color: #f7f7ff;
+      background: #2a1520;
+    }
+
+    .progress-bar-wrap {
+      margin-top: 10px;
+      width: 100%;
+      max-width: 380px;
+      height: 6px;
+      border-radius: 999px;
+      border: 1px solid #2e3444;
+      margin-left: auto;
+      margin-right: auto;
+      overflow: hidden;
+      background: #070813;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #ff4b81, #ff9a5a, #4ea3ff);
+      transition: width 0.25s ease-out;
+    }
+
+    #progress-text {
+      margin-top: 4px;
+      font-size: 11px;
+      color: #c0c1d8;
+    }
+
+    .table-card { margin-top: 8px; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 0;
+    }
+
+    thead {
+      background: #181b27;
+    }
+
+    th, td {
+      padding: 8px 12px;
+      font-size: 12px;
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    th {
+      font-weight: 600;
+      color: #e5e6ff;
+      border-bottom: 1px solid #272b3b;
+      cursor: pointer;
+    }
+
+    th.sortable::after {
+      content: "⇅";
+      font-size: 10px;
+      margin-left: 4px;
+      opacity: 0.6;
+    }
+
+    th.sortable.asc::after { content: "↑"; }
+    th.sortable.desc::after { content: "↓"; }
+
+    tbody tr:nth-child(even) { background: #141722; }
+    tbody tr:nth-child(odd)  { background: #0f111b; }
+
+    tbody tr:hover {
+      background: #202433;
+    }
+
+    tr.tag-unfollowed { background: #3a0921 !important; }
+    tr.tag-influencer { background: #2a350b !important; }
+    tr.tag-public    { background: #09233f !important; }
+
+    td.user-cell { font-weight: 500; }
+    td.date-cell { color: #a6a7c9; font-size: 12px; }
+    td.link-cell { width: 1%; }
+    td.status-cell { width: 1%; }
+
+    a {
+      color: #4ea3ff;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    a:hover { text-decoration: underline; }
+
+    .tag-btn,
+    .copy-btn {
+      border-radius: 999px;
+      border: 1px solid #2e3444;
+      background: #070813;
+      color: #c0c1d8;
+      font-size: 11px;
+      padding: 3px 8px;
+      cursor: pointer;
+      margin-right: 4px;
+    }
+
+    .tag-btn.active[data-tag="unfollowed"] {
+      background: #ff4b81;
+      color: #fff;
+      border-color: #ff4b81;
+    }
+    .tag-btn.active[data-tag="influencer"] {
+      background: #ffd166;
+      color: #000;
+      border-color: #ffd166;
+    }
+    .tag-btn.active[data-tag="public"] {
+      background: #4ea3ff;
+      color: #fff;
+      border-color: #4ea3ff;
+    }
+
+    .copy-btn.copied {
+      background: #4ea3ff;
+      color: #fff;
+      border-color: #4ea3ff;
+    }
+
+    @media (max-width: 700px) {
+      .landing-header-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .landing-chip {
+        align-self: flex-start;
+      }
+      h1 { font-size: 20px; }
+      th, td {
+        font-size: 11px;
+        padding: 7px 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Landing / upload screen -->
+  <div class="landing" id="landing">
+    <div class="landing-panel">
+      <div class="landing-header-row">
+        <div class="landing-title-wrap">
+          <h1 class="landing-title">FAKE ASS FUCKS</h1>
+          <p class="landing-sub">Find the people you follow who don’t follow you back.</p>
+        </div>
+        <div class="landing-chip">Private • Runs in your browser securely</div>
+      </div>
+
+      <ol class="step-list">
+        <li>Download your Instagram data ZIP.</li>
+        <li>Grab <strong>followers_1.json</strong> and <strong>following.json</strong>.</li>
+        <li>Use the button below to select both files.</li>
+      </ol>
+
+      <div class="upload-box">
+        <div class="upload-label-row">
+          <span class="upload-title">Upload your JSON files</span>
+          <span class="upload-hint">Only followers_1.json and following.json are needed.</span>
+        </div>
+
+        <input type="file" id="file-input" multiple accept=".json">
+
+        <div class="file-pills">
+          <div class="file-pill" id="pill-followers">
+            <div class="file-pill-left">
+              <span class="file-dot"></span>
+              <span class="file-label">followers_1.json</span>
+            </div>
+            <span class="file-name" id="name-followers">(waiting)</span>
+          </div>
+          <div class="file-pill" id="pill-following">
+            <div class="file-pill-left">
+              <span class="file-dot"></span>
+              <span class="file-label">following.json</span>
+            </div>
+            <span class="file-name" id="name-following">(waiting)</span>
+          </div>
+        </div>
+
+        <div id="file-status-text" class="file-status-text">
+          Choose both files to get started.
+        </div>
+
+        <div class="actions-row">
+          <button id="build-btn" class="build-btn" disabled>Build fake ass list</button>
+          <div class="upload-status" id="upload-status"></div>
+        </div>
+      </div>
+
+      <div class="landing-footer">
+        Export from Instagram via <strong>Settings → Accounts Center → Download your information</strong>, then grab these two files from the ZIP.
+      </div>
+    </div>
+  </div>
+
+  <!-- Main dashboard -->
+  <div class="page hidden" id="main-app">
+    <div class="header-card" id="header-card">
+      <div class="title-row">
+        <span class="title-emoji">😈</span>
+        <h1>Fake ass fucks list</h1>
+        <span class="title-emoji">😈</span>
+      </div>
+      <p class="subtitle">
+        People you follow who don’t follow you back: <span id="count-total">0</span>
+      </p>
+      <p class="subtitle" id="joke-line"></p>
+
+      <div class="controls">
+        <div class="search-box">
+          <input type="text" id="search-input" placeholder="Search username..." />
+        </div>
+        <div class="filters">
+          <button class="filter-chip" data-filter="all">
+            Show all <span class="count" id="count-all">0</span>
+          </button>
+          <button class="filter-chip" data-filter="unfollowed">
+            Unfollowed 🚮 <span class="count" id="count-unfollowed">0</span>
+          </button>
+          <button class="filter-chip" data-filter="influencer">
+            Influencer ✨ <span class="count" id="count-influencer">0</span>
+          </button>
+          <button class="filter-chip" data-filter="public">
+            Public page 🏛 <span class="count" id="count-public">0</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="progress-bar-wrap">
+        <div class="progress-bar" id="progress-bar"></div>
+      </div>
+      <p class="subtitle" id="progress-text"></p>
+    </div>
+
+    <div class="table-card" id="table-card">
+      <table id="fake-list-table">
+        <thead>
+          <tr>
+            <th class="sortable" data-sort-key="username">Username</th>
+            <th class="sortable" data-sort-key="timestamp">Followed at</th>
+            <th>Profile</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- rows injected by JS -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    const jokes = [
+      "Don't be a fan.",
+      "Purge time.",
+      "If they wanted to they would.",
+      "They'll notice once they see you unfollow.",
+    ];
+
+    const fileInput = document.getElementById("file-input");
+    const buildBtn = document.getElementById("build-btn");
+    const uploadStatus = document.getElementById("upload-status");
+    const pillFollowers = document.getElementById("pill-followers");
+    const pillFollowing = document.getElementById("pill-following");
+    const nameFollowers = document.getElementById("name-followers");
+    const nameFollowing = document.getElementById("name-following");
+    const fileStatusText = document.getElementById("file-status-text");
+    const landing = document.getElementById("landing");
+    const mainApp = document.getElementById("main-app");
+
+    let followersJson = null;
+    let followingJson = null;
+
+    function setWaitingText(el) {
+      el.textContent = "(waiting)";
+    }
+
+    function setUploadedText(el) {
+      el.textContent = "Uploaded";
+    }
+
+    function setFilePillStateUploaded(pill, nameEl) {
+      pill.classList.remove("error");
+      pill.classList.add("ready");
+      setUploadedText(nameEl);
+    }
+
+    function setFilePillStateError(pill, nameEl) {
+      pill.classList.remove("ready");
+      pill.classList.add("error");
+      nameEl.textContent = "Error";
+    }
+
+    function updateBuildButtonState() {
+      const ready = !!(followersJson && followingJson);
+      buildBtn.disabled = !ready;
+      fileStatusText.classList.remove("ok", "err");
+      if (ready) {
+        fileStatusText.textContent = "Nice. Both files are uploaded. You can build the list now.";
+        fileStatusText.classList.add("ok");
+      } else {
+        fileStatusText.textContent = "Choose both followers_1.json and following.json.";
+      }
+    }
+
+    function readJsonFile(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (evt) => {
+          try {
+            const obj = JSON.parse(evt.target.result);
+            resolve(obj);
+          } catch (e) {
+            reject(e);
+          }
+        };
+        reader.onerror = () => reject(new Error("Failed to read file"));
+        reader.readAsText(file);
+      });
+    }
+
+    async function handleFiles(files) {
+      if (!files || !files.length) return;
+
+      uploadStatus.textContent = "";
+      uploadStatus.className = "upload-status";
+
+      let newFollowersFile = null;
+      let newFollowingFile = null;
+
+      for (const f of files) {
+        const lower = f.name.toLowerCase();
+        if (lower === "followers_1.json") newFollowersFile = f;
+        if (lower === "following.json")   newFollowingFile = f;
+      }
+
+      // Followers side
+      if (newFollowersFile) {
+        followersJson = null;
+        pillFollowers.classList.remove("ready", "error");
+        nameFollowers.textContent = "Reading…";
+
+        uploadStatus.textContent = "Reading followers_1.json…";
+        uploadStatus.classList.add("loading");
+
+        try {
+          const data = await readJsonFile(newFollowersFile);
+          followersJson = data;
+          setFilePillStateUploaded(pillFollowers, nameFollowers);
+        } catch (e) {
+          followersJson = null;
+          setFilePillStateError(pillFollowers, nameFollowers);
+          uploadStatus.textContent = "Could not read followers_1.json.";
+          uploadStatus.classList.remove("loading");
+          uploadStatus.classList.add("error");
+        }
+      }
+
+      // Following side
+      if (newFollowingFile) {
+        followingJson = null;
+        pillFollowing.classList.remove("ready", "error");
+        nameFollowing.textContent = "Reading…";
+
+        if (!newFollowersFile) {
+          uploadStatus.textContent = "Reading following.json…";
+          uploadStatus.classList.add("loading");
+        }
+
+        try {
+          const data = await readJsonFile(newFollowingFile);
+          followingJson = data;
+          setFilePillStateUploaded(pillFollowing, nameFollowing);
+        } catch (e) {
+          followingJson = null;
+          setFilePillStateError(pillFollowing, nameFollowing);
+          uploadStatus.textContent = "Could not read following.json.";
+          uploadStatus.classList.remove("loading");
+          uploadStatus.classList.add("error");
+        }
+      }
+
+      updateBuildButtonState();
+
+      if (followersJson && followingJson) {
+        uploadStatus.textContent = "Both files uploaded.";
+        uploadStatus.classList.remove("loading");
+        uploadStatus.classList.add("done");
+      } else if (!uploadStatus.classList.contains("error")) {
+        uploadStatus.textContent = "Waiting for the other file.";
+      }
+    }
+
+    fileInput.addEventListener("change", (e) => {
+      handleFiles(e.target.files);
+    });
+
+    function buildNotFollowingBack(followersData, followingData) {
+      const followers = new Set();
+      if (Array.isArray(followersData)) {
+        for (const entry of followersData) {
+          const data = entry && entry.string_list_data;
+          if (Array.isArray(data) && data[0] && data[0].value) {
+            followers.add(data[0].value);
+          }
+        }
+      }
+
+      const followingEntries = [];
+      const list = followingData && followingData.relationships_following;
+      if (Array.isArray(list)) {
+        for (const entry of list) {
+          const title = entry.title;
+          const sdata = entry.string_list_data;
+          if (!title || !Array.isArray(sdata) || !sdata[0]) continue;
+          const href = sdata[0].href;
+          const ts = sdata[0].timestamp;
+          followingEntries.push({ username: title, href, timestamp: ts });
+        }
+      }
+
+      return followingEntries
+        .filter(e => !followers.has(e.username))
+        .sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+    }
+
+    function renderTable(notFollowingList) {
+      const tbody = document.querySelector("#fake-list-table tbody");
+      tbody.innerHTML = "";
+
+      for (const e of notFollowingList) {
+        const username = e.username;
+        const href = e.href || ("https://www.instagram.com/" + username);
+        const ts = e.timestamp;
+        let dateStr = "unknown";
+        if (typeof ts === "number") {
+          const d = new Date(ts * 1000);
+          const opts = { year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" };
+          dateStr = d.toLocaleString(undefined, opts);
+        }
+        const tr = document.createElement("tr");
+        tr.setAttribute("data-username", username);
+        tr.setAttribute("data-timestamp", ts || "");
+
+        tr.innerHTML = `
+          <td class="user-cell" title="Mark them however they deserve">${username}</td>
+          <td class="date-cell">${dateStr}</td>
+          <td class="link-cell">
+            <a href="${href}" target="_blank">Open</a>
+            <button class="copy-btn" data-href="${href}" title="Copy link">Copy</button>
+          </td>
+          <td class="status-cell">
+            <button class="tag-btn" data-tag="unfollowed">Unfollowed</button>
+            <button class="tag-btn" data-tag="influencer">Influencer/Celeb</button>
+            <button class="tag-btn" data-tag="public">Public page</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      }
+
+      document.getElementById("count-total").textContent = notFollowingList.length;
+      document.getElementById("count-all").textContent = notFollowingList.length;
+
+      const jokeEl = document.getElementById("joke-line");
+      if (jokeEl && jokes.length) {
+        jokeEl.textContent = jokes[Math.floor(Math.random() * jokes.length)];
+      }
+    }
+
+    function setupTagging() {
+      const tableBody = document.querySelector("#fake-list-table tbody");
+      const progressBar = document.getElementById("progress-bar");
+      const progressText = document.getElementById("progress-text");
+
+      const counts = {
+        all: 0,
+        unfollowed: 0,
+        influencer: 0,
+        public: 0,
+        processed: 0
+      };
+
+      function recalcCounts() {
+        const rows = Array.from(document.querySelectorAll("#fake-list-table tbody tr"));
+        counts.all = rows.length;
+        counts.unfollowed = 0;
+        counts.influencer = 0;
+        counts.public = 0;
+        counts.processed = 0;
+
+        rows.forEach(row => {
+          let tag = null;
+          if (row.classList.contains("tag-unfollowed")) tag = "unfollowed";
+          if (row.classList.contains("tag-influencer")) tag = "influencer";
+          if (row.classList.contains("tag-public")) tag = "public";
+          if (tag) {
+            counts[tag] += 1;
+            counts.processed += 1;
+          }
+        });
+
+        document.getElementById("count-all").textContent = counts.all;
+        document.getElementById("count-unfollowed").textContent = counts.unfollowed;
+        document.getElementById("count-influencer").textContent = counts.influencer;
+        document.getElementById("count-public").textContent = counts.public;
+
+        const pct = counts.all ? Math.round((counts.processed / counts.all) * 100) : 0;
+        progressBar.style.width = pct + "%";
+        progressText.textContent = "Processed: " + counts.processed + " / " + counts.all + " (" + pct + "%)";
+      }
+
+      function applyRowTag(row, tag) {
+        row.classList.remove("tag-unfollowed", "tag-influencer", "tag-public");
+        row.querySelectorAll(".tag-btn").forEach(btn => btn.classList.remove("active"));
+        if (!tag) return;
+        row.classList.add("tag-" + tag);
+        const btn = row.querySelector(".tag-btn[data-tag='" + tag + "']");
+        if (btn) btn.classList.add("active");
+      }
+
+      function copyToClipboard(text, btn) {
+        if (!navigator.clipboard) {
+          const ta = document.createElement("textarea");
+          ta.value = text;
+          ta.style.position = "fixed";
+          ta.style.opacity = "0";
+          document.body.appendChild(ta);
+          ta.focus();
+          ta.select();
+          try { document.execCommand("copy"); } catch (e) {}
+          document.body.removeChild(ta);
+        } else {
+          navigator.clipboard.writeText(text).catch(() => {});
+        }
+        btn.classList.add("copied");
+        setTimeout(() => btn.classList.remove("copied"), 800);
+      }
+
+      tableBody.addEventListener("click", (evt) => {
+        const btn = evt.target.closest(".tag-btn");
+        const copyBtn = evt.target.closest(".copy-btn");
+
+        if (copyBtn) {
+          const href = copyBtn.getAttribute("data-href");
+          if (href) copyToClipboard(href, copyBtn);
+          return;
+        }
+
+        if (!btn) return;
+
+        const row = btn.closest("tr");
+        const tag = btn.getAttribute("data-tag");
+
+        let currentTag = null;
+        if (row.classList.contains("tag-unfollowed")) currentTag = "unfollowed";
+        if (row.classList.contains("tag-influencer")) currentTag = "influencer";
+        if (row.classList.contains("tag-public")) currentTag = "public";
+
+        const newTag = (currentTag === tag) ? null : tag;
+
+        applyRowTag(row, newTag);
+        recalcCounts();
+      });
+
+      recalcCounts();
+    }
+
+    function setupFiltersAndSorting() {
+      const searchInput = document.getElementById("search-input");
+      const rowsSelector = "#fake-list-table tbody tr";
+      let activeFilter = "all";
+      let searchTerm = "";
+      let currentSort = { key: "timestamp", dir: "desc" };
+
+      function rowMatchesFilterAndSearch(row, filter, searchTerm) {
+        const username = (row.getAttribute("data-username") || "").toLowerCase();
+        let tag = null;
+        if (row.classList.contains("tag-unfollowed")) tag = "unfollowed";
+        if (row.classList.contains("tag-influencer")) tag = "influencer";
+        if (row.classList.contains("tag-public")) tag = "public";
+
+        const matchesFilter = (filter === "all") ? true : tag === filter;
+        const matchesSearch = username.includes(searchTerm.toLowerCase());
+        return matchesFilter && matchesSearch;
+      }
+
+      function applyFilterAndSearch() {
+        const rows = document.querySelectorAll(rowsSelector);
+        rows.forEach(row => {
+          const show = rowMatchesFilterAndSearch(row, activeFilter, searchTerm);
+          row.style.display = show ? "" : "none";
+        });
+        document.querySelectorAll(".filter-chip").forEach(chip => {
+          chip.classList.toggle("active", chip.getAttribute("data-filter") === activeFilter);
+        });
+      }
+
+      document.querySelector(".filters").addEventListener("click", evt => {
+        const chip = evt.target.closest(".filter-chip");
+        if (!chip) return;
+        activeFilter = chip.getAttribute("data-filter") || "all";
+        applyFilterAndSearch();
+      });
+
+      searchInput.addEventListener("input", () => {
+        searchTerm = searchInput.value || "";
+        applyFilterAndSearch();
+      });
+
+      function sortTableBy(key, direction) {
+        const tbody = document.querySelector("#fake-list-table tbody");
+        const rows = Array.from(tbody.querySelectorAll("tr"));
+
+        rows.sort((a, b) => {
+          if (key === "username") {
+            const ua = (a.getAttribute("data-username") || "").toLowerCase();
+            const ub = (b.getAttribute("data-username") || "").toLowerCase();
+            if (ua < ub) return direction === "asc" ? -1 : 1;
+            if (ua > ub) return direction === "asc" ? 1 : -1;
+            return 0;
+          }
+          if (key === "timestamp") {
+            const ta = parseInt(a.getAttribute("data-timestamp") || "0", 10);
+            const tb = parseInt(b.getAttribute("data-timestamp") || "0", 10);
+            return direction === "asc" ? (ta - tb) : (tb - ta);
+          }
+          return 0;
+        });
+
+        rows.forEach(r => tbody.appendChild(r));
+      }
+
+      document.querySelectorAll("th.sortable").forEach(th => {
+        th.addEventListener("click", () => {
+          const key = th.getAttribute("data-sort-key");
+          if (!key) return;
+
+          if (currentSort.key === key) {
+            currentSort.dir = currentSort.dir === "asc" ? "desc" : "asc";
+          } else {
+            currentSort.key = key;
+            currentSort.dir = key === "timestamp" ? "desc" : "asc";
+          }
+
+          document.querySelectorAll("th.sortable").forEach(h => h.classList.remove("asc", "desc"));
+          th.classList.add(currentSort.dir);
+
+          sortTableBy(currentSort.key, currentSort.dir);
+          applyFilterAndSearch();
+        });
+      });
+
+      applyFilterAndSearch();
+    }
+
+    buildBtn.addEventListener("click", () => {
+      if (!(followersJson && followingJson)) return;
+      uploadStatus.textContent = "Building list…";
+      uploadStatus.classList.remove("error");
+      uploadStatus.classList.add("loading");
+
+      const list = buildNotFollowingBack(followersJson, followingJson);
+      renderTable(list);
+      setupTagging();
+      setupFiltersAndSorting();
+      uploadStatus.textContent = "";
+      uploadStatus.classList.remove("loading");
+
+      landing.classList.add("hidden");
+      mainApp.classList.remove("hidden");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  </script>
+</body>
+</html>
