@@ -2,6 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Fallen Follow Registry</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -666,7 +667,7 @@
 
     .landing-footer strong { color: var(--ds-holo-blue-soft); }
 
-    /* NARROWER PAGE TO LET ORB SHOW AROUND */
+    /* Narrower page so orb shows around main app on desktop/tablet */
     .page {
       max-width: 1040px;
       width: 100%;
@@ -705,9 +706,13 @@
       line-height: 1.6;
     }
 
-    .table-card { margin-top: 8px; }
+    /* table-card scrollable on small screens */
+    .table-card {
+      margin-top: 8px;
+      overflow-x: auto;
+    }
 
-    /* SIDE BREATHING ROOM AT LAPTOP SIZES SO ORB PEEKS AROUND */
+    /* extra breathing room for orb at mid breakpoints */
     @media (max-width: 1200px) {
       .header-card,
       .table-card {
@@ -716,6 +721,9 @@
     }
 
     @media (max-width: 900px) {
+      .page {
+        padding: 24px 16px 32px;
+      }
       .header-card,
       .table-card {
         margin-inline: 16px;
@@ -1013,7 +1021,7 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      min-width: 0;
+      min-width: 640px;
     }
 
     thead { background: #0b0418; }
@@ -1220,6 +1228,13 @@
       border-color: #4ade80;
     }
 
+    /* Hide orb completely on small screens as a safety net */
+    @media (max-width: 700px) {
+      #status-orb {
+        display: none;
+      }
+    }
+
     @media (max-width: 700px) {
       .landing-header-row {
         flex-direction: column;
@@ -1256,6 +1271,13 @@
       .legend-text ul {
         flex-direction: column;
         align-items: flex-start;
+      }
+      .header-card,
+      .table-card {
+        border-radius: 18px;
+      }
+      .filters {
+        max-width: 100%;
       }
     }
   </style>
@@ -1328,12 +1350,12 @@
         <details>
           <summary>How do I get these Instagram files?</summary>
           <ol>
-            <li>Open Instagram and go to <strong>Settings → Accounts Center</strong>.</li>
+            <li><strong>On phone or desktop:</strong> Open Instagram and go to <strong>Settings → Accounts Center</strong>.</li>
             <li>Tap <strong>Your information and permissions → Export your information</strong>.</li>
             <li>Select your Instagram account and choose <strong>Some of your information</strong>.</li>
             <li>Only check <strong>Followers and following</strong>, set format to <strong>JSON</strong>, and choose <strong>Download to device</strong>.</li>
-            <li>Create the file, then use the email or notification from Instagram to download the ZIP to your computer.</li>
-            <li>Unzip it, then open <code>connections/followers_and_following</code>.</li>
+            <li><strong>On desktop or laptop (recommended):</strong> Open the email or notification from Instagram, download the ZIP, and unzip it.</li>
+            <li>In the unzipped folder, open <code>connections/followers_and_following</code>.</li>
             <li>Pick <strong>followers_1.json</strong> and <strong>following.json</strong> from that folder and upload them here.</li>
           </ol>
         </details>
@@ -1713,7 +1735,7 @@
 
       for (const e of notFollowingList) {
         const usernameKey = e.username || "";
-        the_display = e.display || e.username;
+        const the_display = e.display || e.username;
         const displayName = the_display;
         const href = e.href || ("https://www.instagram.com/" + e.username);
         const ts = e.timestamp;
@@ -2044,7 +2066,12 @@
       applyFilterAndSearch();
     }
 
-    // DVD-style orb physics using CSS variables
+    // Helper to detect small screens
+    function isSmallScreen() {
+      return window.matchMedia("(max-width: 700px)").matches;
+    }
+
+    // DVD-style orb physics using CSS variables, but disabled on small screens
     let orbX = 100;
     let orbY = 80;
     let orbVX = 70;  // px/sec
@@ -2052,6 +2079,17 @@
     let lastTime = null;
 
     function stepOrb(timestamp) {
+      // On small screens, keep orb off and don't animate
+      if (isSmallScreen()) {
+        orbEl.style.display = "none";
+        lastTime = timestamp;
+        requestAnimationFrame(stepOrb);
+        return;
+      } else {
+        // On larger screens, ensure orb is visible
+        orbEl.style.display = "";
+      }
+
       if (!lastTime) lastTime = timestamp;
       const dt = (timestamp - lastTime) / 1000;
       lastTime = timestamp;
@@ -2089,6 +2127,7 @@
     }
 
     requestAnimationFrame(stepOrb);
+
     window.addEventListener("resize", () => {
       lastTime = null;
     });
